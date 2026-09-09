@@ -1,0 +1,479 @@
+/* ==========================================================================
+   RESET & CONFIGURACIÓN BASE
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-color-deep: #020408;
+  --bg-color-mid: #050a14;
+  --bg-color-accent: #0a1122;
+  --tulip-glow: #ffd60a;
+  --tulip-glow-warm: #ff9e00;
+  --tulip-glow-ambient: rgba(255, 214, 10, 0.22);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-color-deep);
+  font-family: 'Outfit', sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  animation: pageFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes pageFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   FONDO DE CIELO NOCTURNO Y ESTRELLAS
+   ========================================================================== */
+.night-sky {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 45%, #0b1426 0%, #050a14 50%, #010307 100%);
+  overflow: hidden;
+  z-index: 1;
+}
+
+#starsCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.shooting-stars-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Estilo de Estrella Fugaz / Meteoro con Estela */
+.shooting-star {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(-45deg, #ffffff, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 10px rgba(255, 230, 150, 0.8));
+  animation: shoot 2.8s linear infinite;
+  transform: rotate(-35deg);
+  opacity: 0;
+}
+
+.shooting-star::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px #ffffff, 0 0 16px 4px rgba(255, 240, 180, 0.9);
+}
+
+@keyframes shoot {
+  0% {
+    transform: rotate(-35deg) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-35deg) translateX(450px);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   TÍTULO DEDICATORIA
+   ========================================================================== */
+.title-header {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  text-align: center;
+  width: 92%;
+  max-width: 900px;
+  pointer-events: none;
+  animation: fadeInTitle 1.8s ease-out forwards;
+}
+
+.romantic-title {
+  font-family: 'Dancing Script', 'Playfair Display', cursive, serif;
+  font-size: clamp(2rem, 5.2vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+  color: #fff8db;
+  background: linear-gradient(135deg, #ffffff 0%, #fff3b0 35%, #ffd166 70%, #ffb703 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px rgba(255, 214, 10, 0.8)) 
+          drop-shadow(0 0 32px rgba(255, 170, 0, 0.5));
+  animation: titleGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% {
+    filter: drop-shadow(0 0 12px rgba(255, 214, 10, 0.7)) 
+            drop-shadow(0 0 24px rgba(255, 170, 0, 0.4));
+    transform: scale(1);
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(255, 230, 50, 0.95)) 
+            drop-shadow(0 0 40px rgba(255, 180, 0, 0.65))
+            drop-shadow(0 0 60px rgba(255, 140, 0, 0.35));
+    transform: scale(1.02);
+  }
+}
+
+@keyframes fadeInTitle {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ==========================================================================
+   CONTENEDOR PRINCIPAL DEL RAMO
+   ========================================================================== */
+.bouquet-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  padding-top: 40px;
+}
+
+.bouquet-wrapper {
+  position: relative;
+  width: min(85vw, 540px);
+  height: min(90vh, 760px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  will-change: transform;
+}
+
+/* Inclinación hacia la izquierda del ramo completo */
+.bouquet-tilt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(-10deg);
+  transform-origin: 50% 85%;
+  animation: bouquetFloat 6s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Resplandor ambiental suave detrás de las flores */
+.ambient-glow {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--tulip-glow-ambient) 0%, rgba(255, 170, 0, 0.12) 40%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 1;
+  animation: ambientPulse 5s ease-in-out infinite alternate;
+}
+
+/* SVG del Ramo */
+.bouquet-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+}
+
+/* ==========================================================================
+   RESPLANDOR DORADO DE LOS TULIPANES
+   ========================================================================== */
+.tulips-glowing {
+  filter: drop-shadow(0 0 16px rgba(255, 214, 10, 0.95)) 
+          drop-shadow(0 0 35px rgba(255, 170, 0, 0.7)) 
+          drop-shadow(0 0 60px rgba(255, 140, 0, 0.4));
+  animation: tulipGlowPulse 4s ease-in-out infinite alternate;
+}
+
+.tulip-flower {
+  cursor: pointer;
+}
+
+.tulip-flower:hover {
+  filter: drop-shadow(0 0 20px #ffffff);
+}
+
+/* Micro-animaciones de oscilación suave ancladas en la base del tallo */
+.tulip-1 .flower-head { animation: tulipSway1 5.4s ease-in-out infinite alternate; }
+.tulip-2 .flower-head { animation: tulipSway2 6.0s ease-in-out infinite alternate; }
+.tulip-3 .flower-head { animation: tulipSway3 5.0s ease-in-out infinite alternate; }
+.tulip-4 .flower-head { animation: tulipSway4 5.8s ease-in-out infinite alternate; }
+.tulip-5 .flower-head { animation: tulipSway5 5.2s ease-in-out infinite alternate; }
+.tulip-6 .flower-head { animation: tulipSway6 5.6s ease-in-out infinite alternate; }
+.tulip-7 .flower-head { animation: tulipSway7 4.8s ease-in-out infinite alternate; }
+
+.flower-head {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  display: inline-block;
+}
+
+@keyframes tulipSway1 {
+  0% { transform: rotate(-2.5deg); }
+  100% { transform: rotate(2.5deg); }
+}
+
+@keyframes tulipSway2 {
+  0% { transform: rotate(2.5deg); }
+  100% { transform: rotate(-2.5deg); }
+}
+
+@keyframes tulipSway3 {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+@keyframes tulipSway4 {
+  0% { transform: rotate(2deg); }
+  100% { transform: rotate(-2deg); }
+}
+
+@keyframes tulipSway5 {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(1.5deg); }
+}
+
+@keyframes tulipSway6 {
+  0% { transform: rotate(2.5deg); }
+  100% { transform: rotate(-2deg); }
+}
+
+@keyframes tulipSway7 {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(3deg); }
+}
+
+@keyframes bouquetFloat {
+  0% {
+    transform: rotate(-10deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(-9.3deg) translateY(-10px);
+  }
+  100% {
+    transform: rotate(-10.7deg) translateY(-16px);
+  }
+}
+
+@keyframes ribbonSway {
+  0% { transform: rotate(-0.8deg); }
+  100% { transform: rotate(0.8deg); }
+}
+
+/* ==========================================================================
+   PARTÍCULAS MÁGICAS AL HACER CLICK / INTERACTUAR
+   ========================================================================== */
+.sparkle-particle {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 10%, #ffee55 60%, rgba(255, 200, 0, 0) 100%);
+  box-shadow: 0 0 10px #ffe600, 0 0 20px #ff9900;
+  animation: floatSparkle 1.8s ease-out forwards;
+  z-index: 100;
+}
+
+@keyframes floatSparkle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6);
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(1.4);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (CENTRADO ÓPTIMO EN PANTALLAS MÓVILES)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .title-header {
+    top: 44px;
+    width: 92%;
+  }
+
+  .romantic-title {
+    font-size: clamp(1.85rem, 6.2vw, 2.5rem);
+  }
+
+  .bouquet-container {
+    padding-top: 70px;
+    padding-bottom: 20px;
+  }
+
+  .bouquet-wrapper {
+    width: min(92vw, 440px);
+    height: min(76vh, 640px);
+  }
+
+  /* Centrado horizontal equilibrado en móviles */
+  .bouquet-tilt {
+    transform: rotate(-3.5deg) translateX(4px);
+    transform-origin: 50% 80%;
+    animation: bouquetFloatMobile 6s ease-in-out infinite alternate;
+  }
+
+  .ambient-glow {
+    top: 26%;
+    width: 260px;
+    height: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-header {
+    top: 38px;
+    width: 95%;
+  }
+
+  .romantic-title {
+    font-size: clamp(1.65rem, 6.8vw, 2.1rem);
+  }
+
+  .bouquet-container {
+    padding-top: 75px;
+    padding-bottom: 10px;
+  }
+
+  .bouquet-wrapper {
+    width: min(95vw, 380px);
+    height: min(72vh, 560px);
+  }
+
+  /* Inclinación muy sutil para que el ramo esté visualmente 100% centrado */
+  .bouquet-tilt {
+    transform: rotate(-2.5deg) translateX(4px);
+    transform-origin: 50% 80%;
+    animation: bouquetFloatSmallMobile 6s ease-in-out infinite alternate;
+  }
+
+  .ambient-glow {
+    top: 28%;
+    width: 220px;
+    height: 220px;
+  }
+}
+
+@keyframes bouquetFloatMobile {
+  0% {
+    transform: rotate(-3.5deg) translateX(4px) translateY(0px);
+  }
+  50% {
+    transform: rotate(-2.5deg) translateX(4px) translateY(-7px);
+  }
+  100% {
+    transform: rotate(-4deg) translateX(4px) translateY(-12px);
+  }
+}
+
+@keyframes bouquetFloatSmallMobile {
+  0% {
+    transform: rotate(-2.5deg) translateX(4px) translateY(0px);
+  }
+  50% {
+    transform: rotate(-1.8deg) translateX(4px) translateY(-6px);
+  }
+  100% {
+    transform: rotate(-3deg) translateX(4px) translateY(-10px);
+  }
+}
+
+/* ==========================================================================
+   BOTÓN VOLVER AL INICIO
+   ========================================================================== */
+.back-link {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 235, 150, 0.75);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 214, 10, 0.25);
+  background: rgba(10, 17, 34, 0.5);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.back-link:hover {
+  color: #ffd60a;
+  border-color: rgba(255, 214, 10, 0.6);
+  background: rgba(255, 214, 10, 0.12);
+  box-shadow: 0 0 12px rgba(255, 214, 10, 0.3);
+  transform: translateY(-50%) translateX(-2px);
+}
+
+@media (max-width: 600px) {
+  .back-link {
+    position: static;
+    transform: none;
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+  }
+  .back-link:hover {
+    transform: translateX(-2px);
+  }
+}

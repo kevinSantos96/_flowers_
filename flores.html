@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ramo-Tulipanes-Amarillos</title>
+  <meta name="description"
+    content="Ramo de hermosos tulipanes amarillos brillantes bajo un cielo estrellado con estrellas fugaces.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- Fondo con estrellas y estrellas fugaces -->
+  <div class="night-sky" id="nightSky">
+    <canvas id="starsCanvas"></canvas>
+    <div id="shootingStarsContainer" class="shooting-stars-container"></div>
+  </div>
+
+  <!-- Título Dedicatoria y Botón de regreso -->
+  <header class="title-header">
+    <h1 class="romantic-title">Para Anny la niña más hermosa</h1>
+  </header>
+
+  <!-- Contenedor principal del ramo -->
+  <main class="bouquet-container" id="bouquetContainer">
+    <div class="bouquet-wrapper" id="bouquetWrapper">
+      <div class="bouquet-tilt">
+        <!-- Resplandor ambiental de fondo -->
+        <div class="ambient-glow"></div>
+
+        <!-- Ilustración Vectorial del Ramo -->
+        <svg class="bouquet-svg" viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Filtro de Resplandor Dorado para los Tulipanes -->
+            <filter id="tulipGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur1" />
+              <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur2" />
+              <feGaussianBlur in="SourceGraphic" stdDeviation="28" result="blur3" />
+              <feMerge>
+                <feMergeNode in="blur3" />
+                <feMergeNode in="blur2" />
+                <feMergeNode in="blur1" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+
+            <!-- Filtro de Sombra Suave para el Papel y Lazos -->
+            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1a0f0a" flood-opacity="0.3" />
+            </filter>
+
+            <!-- Degradados de los Tulipanes Amarillos -->
+            <linearGradient id="tulipCenterGrad" x1="50%" y1="100%" x2="50%" y2="0%">
+              <stop offset="0%" stop-color="#ff9900" />
+              <stop offset="30%" stop-color="#ffb703" />
+              <stop offset="70%" stop-color="#ffe600" />
+              <stop offset="100%" stop-color="#fff59d" />
+            </linearGradient>
+
+            <linearGradient id="tulipLeftPetal" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#fb8500" />
+              <stop offset="45%" stop-color="#ffb703" />
+              <stop offset="85%" stop-color="#ffee55" />
+              <stop offset="100%" stop-color="#fff9a6" />
+            </linearGradient>
+
+            <linearGradient id="tulipRightPetal" x1="100%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#f77f00" />
+              <stop offset="40%" stop-color="#ffaa00" />
+              <stop offset="80%" stop-color="#ffea00" />
+              <stop offset="100%" stop-color="#fffcc4" />
+            </linearGradient>
+
+            <linearGradient id="tulipBackPetal" x1="50%" y1="100%" x2="50%" y2="0%">
+              <stop offset="0%" stop-color="#e85d04" />
+              <stop offset="60%" stop-color="#faa307" />
+              <stop offset="100%" stop-color="#ffdd00" />
+            </linearGradient>
+
+            <!-- Degradados de Tallos y Hojas -->
+            <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#2d5a27" />
+              <stop offset="40%" stop-color="#4a853f" />
+              <stop offset="70%" stop-color="#5fa153" />
+              <stop offset="100%" stop-color="#254b20" />
+            </linearGradient>
+
+            <linearGradient id="leafGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#1b4317" />
+              <stop offset="35%" stop-color="#2e6f28" />
+              <stop offset="75%" stop-color="#4e9944" />
+              <stop offset="100%" stop-color="#6ebf62" />
+            </linearGradient>
+
+            <linearGradient id="leafGrad2" x1="100%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#143611" />
+              <stop offset="40%" stop-color="#265e21" />
+              <stop offset="80%" stop-color="#408738" />
+              <stop offset="100%" stop-color="#5ca952" />
+            </linearGradient>
+
+            <!-- Degradados del Papel de Envoltura (Kraft Beige Elegante) -->
+            <linearGradient id="paperBackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e3c2ac" />
+              <stop offset="50%" stop-color="#d4aa91" />
+              <stop offset="100%" stop-color="#c19379" />
+            </linearGradient>
+
+            <linearGradient id="paperMainGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#edd5c4" />
+              <stop offset="35%" stop-color="#f7e6d9" />
+              <stop offset="70%" stop-color="#e5c5b1" />
+              <stop offset="100%" stop-color="#d3a78f" />
+            </linearGradient>
+
+            <linearGradient id="paperLeftWing" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fcf1e8" />
+              <stop offset="50%" stop-color="#edd3c1" />
+              <stop offset="100%" stop-color="#d8b29c" />
+            </linearGradient>
+
+            <linearGradient id="paperRightWing" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#e4bfaa" />
+              <stop offset="50%" stop-color="#edd6c5" />
+              <stop offset="100%" stop-color="#cf9f85" />
+            </linearGradient>
+
+            <linearGradient id="paperSkirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#edd5c3" />
+              <stop offset="50%" stop-color="#dfbca5" />
+              <stop offset="100%" stop-color="#c59980" />
+            </linearGradient>
+
+            <!-- Degradados del Moño / Lazo -->
+            <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f5cec0" />
+              <stop offset="50%" stop-color="#e8af9c" />
+              <stop offset="100%" stop-color="#cf8e78" />
+            </linearGradient>
+
+            <linearGradient id="ribbonDark" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#d99781" />
+              <stop offset="100%" stop-color="#b6715b" />
+            </linearGradient>
+          </defs>
+
+          <!-- ==============================================
+             CAPA 1: FONDO POSTERIOR DEL CONO DE PAPEL
+             ============================================== -->
+          <!-- ==============================================
+             CAPA 1: FONDO POSTERIOR DEL CONO DE PAPEL
+             ============================================== -->
+          <g id="paperBack">
+            <!-- Cara posterior del papel kraft detrás de las flores -->
+            <path d="M 185 410 Q 300 440 415 410 L 428 335 Q 300 365 172 335 Z" fill="url(#paperBackGrad)"
+              stroke="#aa7960" stroke-width="1.8" />
+          </g>
+
+          <!-- ==============================================
+             CAPA 2: TALLOS DE LOS TULIPANES
+             ============================================== -->
+          <g id="stemsGroup" stroke-linecap="round">
+            <!-- Tallo 1: Conecta exactamente al Tulipán 1 (355, 250) -->
+            <path d="M 305 565 Q 340 390 355 250" fill="none" stroke="url(#stemGrad)" stroke-width="6.5" />
+
+            <!-- Tallo 2: Conecta exactamente al Tulipán 2 (268, 275) -->
+            <path d="M 298 565 Q 275 400 268 275" fill="none" stroke="url(#stemGrad)" stroke-width="6.5" />
+
+            <!-- Tallo 3: Conecta exactamente al Tulipán 3 (308, 305) -->
+            <path d="M 302 565 Q 306 420 308 305" fill="none" stroke="url(#stemGrad)" stroke-width="6.5" />
+
+            <!-- Tallo 4: Conecta exactamente al Tulipán 4 (238, 360) -->
+            <path d="M 296 565 Q 255 450 238 360" fill="none" stroke="url(#stemGrad)" stroke-width="6" />
+
+            <!-- Tallo 5: Conecta exactamente al Tulipán 5 (198, 395) -->
+            <path d="M 293 565 Q 235 480 198 395" fill="none" stroke="url(#stemGrad)" stroke-width="5.5" />
+
+            <!-- Tallo 6: Conecta exactamente al Tulipán 6 (355, 360) -->
+            <path d="M 306 565 Q 338 450 355 360" fill="none" stroke="url(#stemGrad)" stroke-width="6" />
+
+            <!-- Tallo 7: Conecta exactamente al Tulipán 7 (398, 395) -->
+            <path d="M 309 565 Q 365 480 398 395" fill="none" stroke="url(#stemGrad)" stroke-width="5.5" />
+          </g>
+
+          <!-- ==============================================
+             CAPA 3: HOJAS VERDES DEL RAMO
+             ============================================== -->
+          <g id="leavesGroup" stroke="#1d4818" stroke-width="1.5">
+            <!-- Hoja exterior izquierda desplegada -->
+            <path d="M 285 540 Q 185 460 172 385 Q 215 440 280 520 Z" fill="url(#leafGrad1)" />
+
+            <!-- Hoja exterior derecha desplegada -->
+            <path d="M 315 540 Q 415 460 428 385 Q 385 440 320 520 Z" fill="url(#leafGrad2)" />
+
+            <!-- Hoja erguida izquierda alta -->
+            <path d="M 290 540 Q 240 400 248 295 Q 275 380 295 510 Z" fill="url(#leafGrad1)" />
+
+            <!-- Hoja erguida derecha alta -->
+            <path d="M 310 540 Q 360 400 348 280 Q 330 380 305 510 Z" fill="url(#leafGrad2)" />
+
+            <!-- Hojas intermedias que rodean los tallos -->
+            <path d="M 292 550 Q 235 460 265 375 Q 285 450 298 535 Z" fill="url(#leafGrad1)" />
+            <path d="M 308 550 Q 365 460 335 375 Q 315 450 302 535 Z" fill="url(#leafGrad2)" />
+            <path d="M 300 550 Q 280 470 295 380 Q 310 460 300 550 Z" fill="url(#leafGrad1)" />
+
+            <!-- Nervaduras decorativas sutiles en hojas -->
+            <path d="M 280 525 Q 200 455 178 395" fill="none" stroke="#7ac46e" stroke-width="1.2" opacity="0.6" />
+            <path d="M 320 525 Q 400 455 422 395" fill="none" stroke="#7ac46e" stroke-width="1.2" opacity="0.6" />
+            <path d="M 290 520 Q 248 400 250 310" fill="none" stroke="#7ac46e" stroke-width="1.2" opacity="0.6" />
+            <path d="M 310 520 Q 352 400 346 295" fill="none" stroke="#7ac46e" stroke-width="1.2" opacity="0.6" />
+          </g>
+
+          <!-- ==============================================
+             CAPA 4: TULIPANES AMARILLOS BRILLANTES (ANCLADOS EN LOS TALLOS)
+             (Cada base (0,0) coincide exactamente con la punta del tallo)
+             ============================================== -->
+          <g id="tulipsGroup" filter="url(#tulipGlow)" class="tulips-glowing">
+
+            <!-- TULIPÁN 1: Superior Derecho (En punta del tallo 1: 355, 250) -->
+            <g class="tulip-flower tulip-1" transform="translate(355, 250) rotate(8)">
+              <g class="flower-head">
+                <!-- Cáliz de unión con el tallo -->
+                <ellipse cx="0" cy="1" rx="4.5" ry="2.5" fill="#3a7434" />
+                <!-- Pétalo de fondo central -->
+                <path d="M -10 -45 C -8 -65, 8 -65, 10 -45 C 16 -30, 10 -5, 0 0 C -10 -5, -16 -30, -10 -45 Z"
+                  fill="url(#tulipBackPetal)" stroke="#e67e00" stroke-width="1" />
+                <!-- Pétalo izquierdo envolvente -->
+                <path d="M -18 -35 C -26 -10, -8 0, 0 0 C -3 -10, -6 -35, -8 -50 C -15 -50, -19 -42, -18 -35 Z"
+                  fill="url(#tulipLeftPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <!-- Pétalo derecho envolvente -->
+                <path d="M 18 -35 C 26 -10, 8 0, 0 0 C 3 -10, 6 -35, 8 -50 C 15 -50, 19 -42, 18 -35 Z"
+                  fill="url(#tulipRightPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <!-- Pétalo central frontal redondeado -->
+                <path d="M -12 -40 C -15 -20, -9 0, 0 0 C 9 0, 15 -20, 12 -40 C 7 -48, -7 -48, -12 -40 Z"
+                  fill="url(#tulipCenterGrad)" stroke="#f79000" stroke-width="1.2" />
+                <!-- Brillo de luz superior -->
+                <ellipse cx="0" cy="-34" rx="6" ry="10" fill="#ffffff" opacity="0.45" />
+              </g>
+            </g>
+
+            <!-- TULIPÁN 2: Superior Izquierdo (En punta del tallo 2: 268, 275) -->
+            <g class="tulip-flower tulip-2" transform="translate(268, 275) rotate(-10)">
+              <g class="flower-head">
+                <ellipse cx="0" cy="1" rx="4.5" ry="2.5" fill="#3a7434" />
+                <path d="M -10 -45 C -8 -65, 8 -65, 10 -45 C 16 -30, 10 -5, 0 0 C -10 -5, -16 -30, -10 -45 Z"
+                  fill="url(#tulipBackPetal)" stroke="#e67e00" stroke-width="1" />
+                <path d="M -18 -35 C -26 -10, -8 0, 0 0 C -3 -10, -6 -35, -8 -50 C -15 -50, -19 -42, -18 -35 Z"
+                  fill="url(#tulipLeftPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M 18 -35 C 26 -10, 8 0, 0 0 C 3 -10, 6 -35, 8 -50 C 15 -50, 19 -42, 18 -35 Z"
+                  fill="url(#tulipRightPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M -12 -40 C -15 -20, -9 0, 0 0 C 9 0, 15 -20, 12 -40 C 7 -48, -7 -48, -12 -40 Z"
+                  fill="url(#tulipCenterGrad)" stroke="#f79000" stroke-width="1.2" />
+                <ellipse cx="0" cy="-34" rx="6" ry="10" fill="#ffffff" opacity="0.45" />
+              </g>
+            </g>
+
+            <!-- TULIPÁN 3: Centro Alto (En punta del tallo 3: 308, 305) -->
+            <g class="tulip-flower tulip-3" transform="translate(308, 305) rotate(2)">
+              <g class="flower-head">
+                <ellipse cx="0" cy="1" rx="5" ry="2.5" fill="#3a7434" />
+                <path d="M -11 -48 C -9 -70, 9 -70, 11 -48 C 17 -32, 11 -5, 0 0 C -11 -5, -17 -32, -11 -48 Z"
+                  fill="url(#tulipBackPetal)" stroke="#e67e00" stroke-width="1" />
+                <path d="M -20 -38 C -28 -12, -9 0, 0 0 C -4 -10, -7 -38, -9 -54 C -16 -54, -21 -45, -20 -38 Z"
+                  fill="url(#tulipLeftPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M 20 -38 C 28 -12, 9 0, 0 0 C 4 -10, 7 -38, 9 -54 C 16 -54, 21 -45, 20 -38 Z"
+                  fill="url(#tulipRightPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M -13 -44 C -17 -22, -10 0, 0 0 C 10 0, 17 -22, 13 -44 C 8 -52, -8 -52, -13 -44 Z"
+                  fill="url(#tulipCenterGrad)" stroke="#f79000" stroke-width="1.2" />
+                <ellipse cx="0" cy="-38" rx="7" ry="11" fill="#ffffff" opacity="0.45" />
+              </g>
+            </g>
+
+            <!-- TULIPÁN 4: Medio Izquierda (En punta del tallo 4: 238, 360) -->
+            <g class="tulip-flower tulip-4" transform="translate(238, 360) rotate(-18)">
+              <g class="flower-head">
+                <ellipse cx="0" cy="1" rx="4.5" ry="2.5" fill="#3a7434" />
+                <path d="M -10 -45 C -8 -65, 8 -65, 10 -45 C 16 -30, 10 -5, 0 0 C -10 -5, -16 -30, -10 -45 Z"
+                  fill="url(#tulipBackPetal)" stroke="#e67e00" stroke-width="1" />
+                <path d="M -18 -35 C -26 -10, -8 0, 0 0 C -3 -10, -6 -35, -8 -50 C -15 -50, -19 -42, -18 -35 Z"
+                  fill="url(#tulipLeftPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M 18 -35 C 26 -10, 8 0, 0 0 C 3 -10, 6 -35, 8 -50 C 15 -50, 19 -42, 18 -35 Z"
+                  fill="url(#tulipRightPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M -12 -40 C -15 -20, -9 0, 0 0 C 9 0, 15 -20, 12 -40 C 7 -48, -7 -48, -12 -40 Z"
+                  fill="url(#tulipCenterGrad)" stroke="#f79000" stroke-width="1.2" />
+                <ellipse cx="0" cy="-34" rx="6" ry="10" fill="#ffffff" opacity="0.45" />
+              </g>
+            </g>
+
+            <!-- TULIPÁN 5: Extremo Izquierdo (En punta del tallo 5: 198, 395) -->
+            <g class="tulip-flower tulip-5" transform="translate(198, 395) rotate(-32)">
+              <g class="flower-head">
+                <ellipse cx="0" cy="1" rx="4.5" ry="2.5" fill="#3a7434" />
+                <path d="M -10 -42 C -8 -62, 8 -62, 10 -42 C 16 -28, 10 -5, 0 0 C -10 -5, -16 -28, -10 -42 Z"
+                  fill="url(#tulipBackPetal)" stroke="#e67e00" stroke-width="1" />
+                <path d="M -17 -32 C -24 -9, -8 0, 0 0 C -3 -9, -6 -32, -8 -46 C -14 -46, -18 -38, -17 -32 Z"
+                  fill="url(#tulipLeftPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M 17 -32 C 24 -9, 8 0, 0 0 C 3 -9, 6 -32, 8 -46 C 14 -46, 18 -38, 17 -32 Z"
+                  fill="url(#tulipRightPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M -11 -36 C -14 -18, -8 0, 0 0 C 8 0, 14 -18, 11 -36 C 6 -44, -6 -44, -11 -36 Z"
+                  fill="url(#tulipCenterGrad)" stroke="#f79000" stroke-width="1.2" />
+                <ellipse cx="0" cy="-30" rx="5.5" ry="9" fill="#ffffff" opacity="0.45" />
+              </g>
+            </g>
+
+            <!-- TULIPÁN 6: Medio Derecha (En punta del tallo 6: 355, 360) -->
+            <g class="tulip-flower tulip-6" transform="translate(355, 360) rotate(16)">
+              <g class="flower-head">
+                <ellipse cx="0" cy="1" rx="4.5" ry="2.5" fill="#3a7434" />
+                <path d="M -10 -45 C -8 -65, 8 -65, 10 -45 C 16 -30, 10 -5, 0 0 C -10 -5, -16 -30, -10 -45 Z"
+                  fill="url(#tulipBackPetal)" stroke="#e67e00" stroke-width="1" />
+                <path d="M -18 -35 C -26 -10, -8 0, 0 0 C -3 -10, -6 -35, -8 -50 C -15 -50, -19 -42, -18 -35 Z"
+                  fill="url(#tulipLeftPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M 18 -35 C 26 -10, 8 0, 0 0 C 3 -10, 6 -35, 8 -50 C 15 -50, 19 -42, 18 -35 Z"
+                  fill="url(#tulipRightPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M -12 -40 C -15 -20, -9 0, 0 0 C 9 0, 15 -20, 12 -40 C 7 -48, -7 -48, -12 -40 Z"
+                  fill="url(#tulipCenterGrad)" stroke="#f79000" stroke-width="1.2" />
+                <ellipse cx="0" cy="-34" rx="6" ry="10" fill="#ffffff" opacity="0.45" />
+              </g>
+            </g>
+
+            <!-- TULIPÁN 7: Extremo Derecho (En punta del tallo 7: 398, 395) -->
+            <g class="tulip-flower tulip-7" transform="translate(398, 395) rotate(32)">
+              <g class="flower-head">
+                <ellipse cx="0" cy="1" rx="4.5" ry="2.5" fill="#3a7434" />
+                <path d="M -10 -42 C -8 -62, 8 -62, 10 -42 C 16 -28, 10 -5, 0 0 C -10 -5, -16 -28, -10 -42 Z"
+                  fill="url(#tulipBackPetal)" stroke="#e67e00" stroke-width="1" />
+                <path d="M -17 -32 C -24 -9, -8 0, 0 0 C -3 -9, -6 -32, -8 -46 C -14 -46, -18 -38, -17 -32 Z"
+                  fill="url(#tulipLeftPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M 17 -32 C 24 -9, 8 0, 0 0 C 3 -9, 6 -32, 8 -46 C 14 -46, 18 -38, 17 -32 Z"
+                  fill="url(#tulipRightPetal)" stroke="#e67e00" stroke-width="1.2" />
+                <path d="M -11 -36 C -14 -18, -8 0, 0 0 C 8 0, 14 -18, 11 -36 C 6 -44, -6 -44, -11 -36 Z"
+                  fill="url(#tulipCenterGrad)" stroke="#f79000" stroke-width="1.2" />
+                <ellipse cx="0" cy="-30" rx="5.5" ry="9" fill="#ffffff" opacity="0.45" />
+              </g>
+            </g>
+          </g>
+
+          <!-- ==============================================
+             CAPA 5: ENVOLTORIO DE PAPEL KRAFT FRONTAL
+             ============================================== -->
+          <g id="paperFrontGroup" filter="url(#softShadow)">
+            <!-- Solapa Trasera/Interior del envoltorio frontal -->
+            <path d="M 185 415 Q 300 450 415 415 L 340 565 L 260 565 Z" fill="#d2a38b" opacity="0.35" />
+
+            <!-- Pliegue Izquierdo del papel kraft -->
+            <path d="M 182 410 Q 220 495 270 565 L 302 565 Q 225 480 188 420 Z" fill="url(#paperLeftWing)"
+              stroke="#a6745d" stroke-width="1.5" />
+
+            <!-- Pliegue Derecho del papel kraft envolviendo por encima -->
+            <path d="M 418 410 Q 380 495 330 565 L 298 565 Q 375 480 412 420 Z" fill="url(#paperRightWing)"
+              stroke="#a6745d" stroke-width="1.5" />
+
+            <!-- Cuerpo Principal Delantero del Cono de Papel -->
+            <path
+              d="M 184 415 C 205 485, 260 545, 285 565 C 295 565, 305 565, 315 565 C 340 545, 395 485, 416 415 C 370 445, 230 445, 184 415 Z"
+              fill="url(#paperMainGrad)" stroke="#9c6851" stroke-width="2" />
+
+            <!-- Líneas de Pliegue y Facetas del Papel Kraft -->
+            <path d="M 225 435 Q 260 505 292 565" fill="none" stroke="#ba8973" stroke-width="1.5" opacity="0.8" />
+            <path d="M 375 435 Q 340 505 308 565" fill="none" stroke="#ba8973" stroke-width="1.5" opacity="0.8" />
+            <path d="M 300 442 L 300 565" fill="none" stroke="#d5a58e" stroke-width="1.2" opacity="0.9" />
+
+            <!-- Pliegue triangular estilizado en la solapa derecha -->
+            <path d="M 416 415 L 375 480 L 412 450 Z" fill="#cf9d84" stroke="#9c6851" stroke-width="1.2" />
+          </g>
+
+          <!-- ==============================================
+             CAPA 6: PARTE INFERIOR DEL PAPEL (FALDA CON PLIEGUES)
+             ============================================== -->
+          <g id="paperSkirtGroup" filter="url(#softShadow)">
+            <!-- Falda de papel bajo el moño -->
+            <path d="M 282 575 C 270 620, 248 675, 255 705 C 268 718, 332 718, 345 705 C 352 675, 330 620, 318 575 Z"
+              fill="url(#paperSkirtGrad)" stroke="#9c6851" stroke-width="2" />
+
+            <!-- Pliegues interiores de la falda -->
+            <path d="M 282 575 Q 272 655 264 708" fill="none" stroke="#8d5b45" stroke-width="1.5" />
+            <path d="M 318 575 Q 328 655 336 708" fill="none" stroke="#8d5b45" stroke-width="1.5" />
+            <path d="M 300 575 Q 300 660 300 714" fill="none" stroke="#cfa38b" stroke-width="1.5" />
+
+            <!-- Borde inferior recortado de la falda -->
+            <path d="M 255 705 Q 280 698 300 714 Q 320 698 345 705" fill="none" stroke="#8d5b45" stroke-width="2" />
+          </g>
+
+          <!-- ==============================================
+             CAPA 7: MOÑO Y LAZO ELEGANTE
+             ============================================== -->
+          <g id="ribbonGroup" filter="url(#softShadow)" class="ribbon-animated">
+            <!-- Cinta colgante izquierda -->
+            <path d="M 292 575 C 285 615, 260 660, 245 695 C 260 688, 272 690, 278 698 C 286 660, 296 610, 298 577 Z"
+              fill="url(#ribbonGrad)" stroke="#945946" stroke-width="1.8" />
+
+            <!-- Cinta colgante derecha -->
+            <path d="M 308 575 C 315 615, 340 660, 355 695 C 340 688, 328 690, 322 698 C 314 660, 304 610, 302 577 Z"
+              fill="url(#ribbonGrad)" stroke="#945946" stroke-width="1.8" />
+
+            <!-- Lazo - Oreja Izquierda -->
+            <path d="M 295 568 C 270 550, 235 550, 238 572 C 240 590, 270 594, 295 576 Z" fill="url(#ribbonGrad)"
+              stroke="#945946" stroke-width="2" />
+            <!-- Pliegue interno oreja izquierda -->
+            <path d="M 285 570 C 268 562, 252 568, 250 577" fill="none" stroke="url(#ribbonDark)" stroke-width="1.8" />
+
+            <!-- Lazo - Oreja Derecha -->
+            <path d="M 305 568 C 330 550, 365 550, 362 572 C 360 590, 330 594, 305 576 Z" fill="url(#ribbonGrad)"
+              stroke="#945946" stroke-width="2" />
+            <!-- Pliegue interno oreja derecha -->
+            <path d="M 315 570 C 332 562, 348 568, 350 577" fill="none" stroke="url(#ribbonDark)" stroke-width="1.8" />
+
+            <!-- Nudo Central del Moño -->
+            <rect x="290" y="560" width="20" height="20" rx="4" fill="url(#ribbonGrad)" stroke="#884f3c"
+              stroke-width="2" />
+            <!-- Brillo en el nudo -->
+            <line x1="294" y1="565" x2="306" y2="565" stroke="#ffded4" stroke-width="1.5" stroke-linecap="round" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
