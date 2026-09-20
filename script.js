@@ -251,4 +251,15 @@ function initSparkleOnClick() {
       spawnSparkles(e.touches[0].clientX, e.touches[0].clientY, 12);
     }
   }, { passive: true });
+
+  // Generar partículas automáticamente alrededor del ramo cada 3 segundos
+  setInterval(() => {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    // Variación aleatoria alrededor del centro (área del ramo)
+    const randomX = centerX + (Math.random() - 0.5) * 200;
+    const randomY = centerY + (Math.random() - 0.5) * 200;
+
+    spawnSparkles(randomX, randomY, 14);
+  }, 1000);
 }
